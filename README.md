@@ -13,3 +13,6 @@ Screenshots
 -------
 
 ![First Page](http://i.imgur.com/Clza4Hv.jpg)
+
+[by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
+[by-nc-sa-img]: http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png
