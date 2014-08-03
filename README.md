@@ -4,8 +4,8 @@ The following is a 8-page crash course on probability based off my notes as a Te
 Links
 -------
 
-[PDF copy of cheatsheet](https://bayesrule.files.wordpress.com/2014/07/probability_cheatsheet_140718.pdf)
-[Blog post detailing probability cheatsheet](https://datastories.quora.com/The-Only-Probability-Cheatsheet-Youll-Ever-Need)
+* [PDF copy of cheatsheet](https://bayesrule.files.wordpress.com/2014/07/probability_cheatsheet_140718.pdf)
+* [Blog post detailing probability cheatsheet](https://datastories.quora.com/The-Only-Probability-Cheatsheet-Youll-Ever-Need)
 
 
 License
