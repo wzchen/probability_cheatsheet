@@ -10,7 +10,7 @@ Links
 Screenshots
 -------
 
-![First Page](http://i.imgur.com/NgjCxGm.jpg)
+![First Page](http://i.imgur.com/HcQaydH.jpg)
 ![Second Page](http://i.imgur.com/HDwSPDk.jpg)
 
 
