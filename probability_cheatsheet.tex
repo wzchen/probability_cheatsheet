@@ -12,6 +12,8 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage[bottom]{footmisc}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -31,8 +33,9 @@
 \usepackage[pdftex,
             pdfauthor={William Chen},
             pdftitle={Probability Cheatsheet},
-            pdfsubject={An 8-page cheatsheet and reference guide originally made for Harvard's Introduction to Probability Class},
-            pdfkeywords={Probabiltiy, Statistics, Cheatsheet}]{hyperref}
+            pdfsubject={An 8-page cheat sheet pdf and reference guide originally made for Stat 110, Harvard's Introduction to Probability Class. Formulas and equations for your statistics class.},
+            pdfkeywords={probability} {statistics} {cheatsheet} {pdf} {cheat} {sheet} {formulas} {equations}
+            ]{hyperref}
 \usepackage{relsize}
 \usepackage{rotating}
 
@@ -121,7 +124,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{center}
-     \Large{\textbf{Probability Cheatsheet}} \\
+     \Large{\textbf{Probability Cheatsheet v1.1}} \\
 \end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -130,7 +133,11 @@
 
 \scriptsize
 
-Compiled by William Chen (\texttt{\href{http://twitter.com/wzchen}{@wzchen}}) with contributions from Sebastian Chiu and Yuan Jiang. Material based off of Joe Blitzstein's (\texttt{\href{http://twitter.com/stat110}{@stat110}}) Intro to Probability lectures (\url{http://stat110.net}) and Blitzstein/Hwang's Intro to Probability textbook (\texttt{\href{http://www.crcpress.com/product/isbn/9781466575578}{link}}). Share comments at \url{http://github.com/wzchen/probability_cheatsheet}. 
+Compiled by William Chen (\url{http://wzchen.com}) with contributions from Sebastian Chiu, Yuan Jiang, Yuqi Hou, and Jessy Hwang. Material based off of Joe Blitzstein's (\texttt{\href{http://twitter.com/stat110}{@stat110}}) lectures (\url{http://stat110.net}) and Blitzstein/Hwang's Intro to Probability textbook (\url{http://bit.ly/introprobability}). Licensed under \texttt{\href{http://creativecommons.org/licenses/by-nc-sa/4.0/}{CC BY-NC-SA 4.0}}. Please share comments, suggestions, and errors at \url{http://github.com/wzchen/probability_cheatsheet}.
+
+\begin{center}
+    Last Updated \today
+\end{center}
 
 % Cheatsheet format from
 % http://www.stdout.org/$\sim$winston/latex/
@@ -369,6 +376,13 @@ I_A =
 % \item[Do Continuous Random Variables have PMFs?] No. The probability that a continuous random variable takes on any specific value is 0.
 \item[What's the prob that a CRV is in an interval?] Use the CDF (or the PDF, see below). To find the probability that a CRV takes on a value in the interval $[a, b]$, subtract the respective CDFs.
 \[P(a \leq X \leq b) = P(X \leq b) - P(X \leq a) = F(b) - F(a)\]
+
+Note that for an r.v. with a normal distribution,
+\begin{align*}
+P(a\leq X\leq b)&=P(X\leq b)-P(X\leq a)\\
+&=\Phi \left(\frac{b-\mu }{\sigma ^2} \right) - \Phi \left( \frac{a-\mu }{\sigma ^2} \right)
+\end{align*}
+
 \item[What is the Cumulative Density Function (CDF)?] It is the following function of $x$.
         \[F(x) = P(X \leq x)\]
         % With the following properties. 1) $F$ is increasing. 2) $F$ is right-continuous. 3) $F(x) \rightarrow 1$ as $x \rightarrow \infty$, $F(x) \rightarrow 0$ as $x \rightarrow -\infty$
@@ -390,6 +404,7 @@ Thus to find the probability that a CRV takes on a value in an interval, you can
 \end{description}
 
 
+\label{lotus}
 \subsection{Law of the Unconscious Statistician (LotUS)}
 \begin{description}
 \item[Expected Value of Function of RV]
@@ -427,7 +442,7 @@ If $X$ and $Y$ are independent, then
 \item[What's a moment?] Note that 
     \begin{description}
         \item[Mean] $\mu'_1 = E(X)$
-        \item[Variance] $\mu'_2 = E(X^2) = Var(X) + (\mu_1')^2$
+        \item[Variance] $\mu'_2 = E(X^2) = \var(X) + (\mu_1')^2$
         %\item[Skewness] $\mu_3 = Skew(X)$
     \end{description}
     Mean, Variance, and other moments (Skewness) can be expressed in terms of the moments of a random variable!
@@ -511,7 +526,7 @@ For continuous random variables:
 
 \section{Covariance and Transformations}\smallskip \hrule height 2pt \smallskip
 
-subsection{Covariance and Correlation (cont'd)}
+\subsection{Covariance and Correlation}
 \begin{description}
 \item [Covariance] is the two-random-variable equivalent of Variance, defined by the following:
     \[\cov(X, Y) = E[(X - E(X))(Y - E(Y))] = E(XY) - E(X)E(Y)\]
@@ -561,12 +576,15 @@ subsection{Covariance and Correlation (cont'd)}
 \subsection{Continuous Transformations}
 \begin{description}
     \item[Why do we need the Jacobian?] We need the Jacobian to rescale our PDF so that it integrates to 1.
+    \label{one variable transformations}
     \item[One Variable Transformations] Let's say that we have a random variable $X$ with PDF $f_X(x)$, but we are also interested in some function of $X$. We call this function $Y = g(X)$. Note that $Y$ is a random variable as well. If $g$ is differentiable and one-to-one (every value of $X$ gets mapped to a unique value of $Y$), then the following is true:
     \[f_Y(y) = f_X(x)\left|\frac{dx}{dy}\right| \hspace{1 cm} f_Y(y) \left|\frac{dy}{dx}\right|= f_X(x)\]
     To find $f_Y(y)$ as a function of $y$, plug in $x = g^{-1}(y)$.
     \[f_Y(y) = f_X(g^{-1}(y))\left|\frac{d}{dy}g^{-1}(y)\right|\]
     The derivative of the inverse transformation is referred to the \textbf{Jacobian}, denoted as $J$.
     \[J = \frac{d}{dy}g^{-1}(y)\]
+
+
 
 % Commenting out because Joe says you won't need to calculate Jacobians on the final
     % \item[Two Variable Transformations] Similarily, let's say we know the joint distribution of $U$ and $V$ but are also interested in the random vector $(X, Y)$ found by $(X, Y) = g(U, V)$. If $g$ is differentiable and one-to-one, then the following is true:
@@ -592,7 +610,15 @@ subsection{Covariance and Correlation (cont'd)}
 
 \end{description}
 
+\label{convolutions}
+\subsection{Convolutions}
+\begin{description}
+    \item[Definition] If you want to find the PDF of a sum of two independent random variables, you take the convolution of their individual distributions.
+    \[f_{X+Y}(t)=\int_{-\infty}^\infty f_x(x)f_y(t-x)dx\]
+    \item[Example] Let $X,Y \sim \textnormal{i.i.d } N(0,1)$. Treat $t$ as a constant. Integrate as usual.
+\[f_{X+Y}(t)=\int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}e^{-x^2/2} \frac{1}{\sqrt{2\pi}}e^{-(t-x)^2/2} dx\]
 
+\end{description}
 
 
 
@@ -610,10 +636,6 @@ Thus we have $T_1 \sim \Expo(\lambda)$. And similarly, the interarrival times be
 \end{description}
 
 \section{Beta, Gamma, Order Statistics}\smallskip \hrule height 2pt \smallskip
-
-\subsection{Law of Total Expectation}
-This is an extension of the \emph{Law of Total Probability}. For any set of events $B_1, B_2, B_3, ... B_n$ that partition the sample space (simplest case being $\{B, B^c\})$:
-    \[E(X) = E(XI_{B}) + E(XI_{B^c}) = E(X | B)P(B) + E(X | B^c)P(B^c)\] \[E(X) = \sum_{i=1}^{n} E(XI_{B_i}) = \sum_{i=1}^{n}E(X | B_i)P(B_i)\]
 
 \subsection{Order Statistics}
 \begin{description}
@@ -653,7 +675,7 @@ Let us say that we have $X \sim \Gam(a, \lambda)$ and $Y \sim \Gam(b, \lambda)$,
 \subsection{Special Cases of Beta and Gamma}
 \[\Gam(1, \lambda) \sim \Expo(\lambda) \hspace{1 cm} \Beta(1, 1) \sim \Unif(0, 1)\]
 
-\section{Conditional Expectation}\smallskip \hrule height 2pt \smallskip
+\section{Conditional Expectation and Variance}\smallskip \hrule height 2pt \smallskip
 
 \subsection{Conditional Expectation}
 \begin{description}
@@ -1060,7 +1082,7 @@ In general, remember that PDFs integrated (and PMFs summed) over support equal 1
 \subsection{Gamma and Beta Distributions}
 You can often solve integrals with the following
 \[ \int_0^\infty x^{t-1}e^{-x}\, dx = \Gamma(t) \hspace{1 cm} \int_0^1 x^{a - 1}(1-x)^{b-1}\, dx = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a + b)} \]
-Where $\Gamma(a) = (n - 1)!$ if $n$ is a positive integer
+Where $\Gamma(n) = (n - 1)!$ if $n$ is a positive integer
 \subsection{Bayes' Billiards (special case of Beta)}
 \[ \small \int_0^1 x^k(1 - x)^{n-k} \, dx = \frac{1}{(n+1){n \choose k}} \] %\hskip .5cm \int_0^1 \frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)} x^{a - 1} (1-x)^{b-1} \, dx = 1  \]
 \subsection{Euler's Approximation for Harmonic Sums}
@@ -1083,13 +1105,6 @@ $P(X \leq m) \geq 50\% \textnormal{ and } P(X \geq m) \geq 50\%$
 
 \section{Classic Problems} \smallskip \hrule height 2pt \smallskip
 
-\subsection{Amoeba Splitting} In every time period, Bobo the amoeba can die, live, or split into two amoebas with probabilities $0.25$, $0.25$, and $0.5$, respectively. All of Bobo's offspring have the same probabilities. Find $P(D)$, the probability that Bobo's lineage eventually dies out. \textbf{Answer - } We use law of probability, and define the events $B_0$, $B_1$. and $B_2$ where $B_i$ means that Bobo has split into $i$ amoebas. We note that $P(D | B_0) = 1$ since his lineage has died, $P(D | B_1) = P(D)$, and $P(D | B_2) = P(D)^2$ since  both lines of his lineage must die out in order for Bobo's lineage to die out.
-\begin{align*}
-P(D) &= 0.25P(D|B_0) + 0.25 P(D|B_1) + 0.5 P(D|B_2)\\
-&= 0.25 + 0.25P(D) + 0.5P(D)^2
-\end{align*}
-Solving the quadratic equation, we get that $P(D) = 0.5 \textnormal{ or } 1$. We dismiss $1$ as an extraneous solution since the expected number of Bobos increase every generation. Thus our answer is $\boxed{P(D) = 0.5}$
-
 \subsection{Birthday Matches} In a group of $n$ people, what is the expected number of distinct birthdays (month and day). What is the expected number of birthday matches? \textbf{Answer -} Let $X$ be the number of distinct birthdays, and let $I_j$ be the indicator for whether the $j^{th}$ days is represented. \[E(I_j) = 1-P(\textnormal{no one born day }j) = 1 - \left(364/365\right)^n\] By linearity, $\boxed{E(X) = 365\left(1-(364/365\right)^n)}$. 
 Now let $Y$ be the number of birthday matches and let $J_i$ be the indicator that the $i^{th}$ pair of people have the same birthday. The probability that any two people share a birthday is $1/365$ so $\boxed{E(Y) = \binom{n}{2} / 365}$. 
 
@@ -1101,107 +1116,206 @@ Which is approximately $n \log(n)$ by Euler's approximation for harmonic sums.
 % \subsection{Envelope Problem}
 % You have envelopes and letters for $n$ different people, put randomly but the letters inside the envelopes. What is the expected number of letters that will be sent to the right person? \textbf{Answer - } Each letter has a $1/n$ chance of being address to the right person. By linearity of expectation, the average number of letters that go into the right envelope is $\boxed{n(1/n) = 1}$.
 
-\subsection{Typos in your Textbook}
-A textbook has $n$ typos, which are randomly scattered amongst it's $n$ pages. You pick a random page, what is the probability that it has no typos? \textbf{Answer - } There is a $\left( 1 - \frac{1}{n} \right)$ probability that any specific typo isn't on your page, and thus a $\left( 1 - \frac{1}{n} \right)^n$ probability that there are no typos on your page. For $n$ large, this is approximately $e^{-1} = \boxed{1/e}$ by a definition of $e^x$.
-
 \section{Example Problems} \smallskip \hrule height 2pt \smallskip
+Contributions from Sebastian Chiu
+
+\subsection{First Step Conditioning} In every time period, Bobo the amoeba can die, live, or split into two amoebas with probabilities $0.25$, $0.25$, and $0.5$, respectively. All of Bobo's offspring have the same probabilities. Find $P(D)$, the probability that Bobo's lineage eventually dies out. \textbf{Answer - } We use law of probability, and define the events $B_0$, $B_1$. and $B_2$ where $B_i$ means that Bobo has split into $i$ amoebas. We note that $P(D | B_0) = 1$ since his lineage has died, $P(D | B_1) = P(D)$, and $P(D | B_2) = P(D)^2$ since  both lines of his lineage must die out in order for Bobo's lineage to die out.
+\begin{align*}
+P(D) &= 0.25P(D|B_0) + 0.25 P(D|B_1) + 0.5 P(D|B_2)\\
+&= 0.25 + 0.25P(D) + 0.5P(D)^2
+\end{align*}
+Solving the quadratic equation, we get that $P(D) = 0.5 \textnormal{ or } 1$. We dismiss $1$ as an extraneous solution since the expected number of Bobos increase every generation. Thus our answer is $\boxed{P(D) = 0.5}$
+
+\subsection{Calculating Probability}
+A textbook has $n$ typos, which are randomly scattered amongst its $n$ pages. You pick a random page, what is the probability that it has no typos? \textbf{Answer - } There is a $\left( 1 - \frac{1}{n} \right)$ probability that any specific typo isn't on your page, and thus a $\left( 1 - \frac{1}{n} \right)^n$ probability that there are no typos on your page. For $n$ large, this is approximately $e^{-1} = \boxed{1/e}$ by a definition of $e^x$.
+
 \subsection{Orderings of i.i.d. random variables}
-I call 2 UberX's and 3 Lyfts at the same time. If the time it takes for the rides to reach me is i.i.d., what is the probability that all the Lyfts will arrive first? \textbf{Answer - } since the arrival times of the five cars are i.i.d., all $5!$ orderings of the arrivals are equally likely. There are $3!$ orderings that involve the Lyfts arriving first, so the probability that the Lyfts arrive first is $\boxed{3!/5! = 1/20}$. Alternatively, there are ${5 \choose 3}$ ways to choose 3 of the 5 slots for the Lyfts to occupy, where each of the choices are equally independent. 1 of those choices have all 3 of the Lyfts arriving first, thus the probability is $\boxed{1 / {5 \choose 3} = 1/20}$
+I call 2 UberX's and 3 Lyfts at the same time. If the time it takes for the rides to reach me is i.i.d., what is the probability that all the Lyfts will arrive first? \textbf{Answer - } since the arrival times of the five cars are i.i.d., all $5!$ orderings of the arrivals are equally likely. There are $3!2!$ orderings that involve the Lyfts arriving first, so the probability that the Lyfts arrive first is $\boxed{\frac{3!2!}{5!} = 1/10}$. Alternatively, there are ${5 \choose 3}$ ways to choose 3 of the 5 slots for the Lyfts to occupy, where each of the choices are equally likely. 1 of those choices have all 3 of the Lyfts arriving first, thus the probability is $\boxed{1 / {5 \choose 3} = 1/10}$
 
 \subsection{Expectation of Negative Hypergeometric}
 What is the expected number of cards that you draw before you pick your first Ace in a shuffled deck?
 \textbf{Answer -} Consider a non-Ace. Denote this to be card $j$. Let $I_j$ be the indicator that card $j$ will be drawn before the first Ace. Note that if $j$ is before all 4 of the Aces in the deck, then $I_j = 1$. The probability that this occurs is $1/5$, because out of 5 cards (the 4 Aces and the not Ace), the probability that the not Ace comes first is $1/5$. $1/5$ here is the probability that any specific non-Ace will appear before all of the Aces in the deck. (e.g. the probability that the Jack of Spades appears before all of the Aces). Thus let $X$ be the number of cards that is drawn before the first Ace. Then $X = I_1 + I_2 + ... + I_{48}$, where each indicator correspond to one of the 48 not Aces. Thus, \[E(X) = E(I_1) + E(I_2) + ... + E(I_{48}) = 48/5 = \boxed{9.6}\].
 
-\subsection{Using MGF to find moments}
-Find $E(X^3)$ for $X \sim \Expo(\lambda)$ using the MGF of $X$. \textbf{Answer - } The MGF of an $\Expo(\lambda)$ is $M(t) = \frac{\lambda}{\lambda-t}$. To get the third moment, we can take the third derivative of the MGF and evaluate at $t=0$: 
-\[\boxed{E(X^3) = \frac{6}{\lambda^3}}\]
-But a much nicer way to use the MGF here is via pattern recognition: note that $M(t)$ looks like it came from a geometric series:
-\[\frac{1}{1-\frac{t}{\lambda}} = \sum^{\infty}_{n=0} \left(\frac{t}{\lambda}\right)^n = \sum^{\infty}_{n=0} \frac{n!}{\lambda^n} \frac{t^n}{n!}\] The coefficient of $\frac{t^n}{n!}$ here is the $n^{th}$ moment of $X$, so we have $E(X^n) = \frac{n!}{\lambda^n}$ for all nonnegative integers $n$. So again we get the same answer.
+\subsection{Minimum and Maximum of Random Variables}
+What is the CDF of the maximum of $n$ independent Uniformly-distributed random variables? \textbf{Answer - } Note that \[ P(\min(X_1, X_2, \dots, X_n) \geq a) = P(X_1 \geq a, X_2 \geq a, \dots, X_n \geq a) \] Similarily, \[ P(\max(X_1, X_2, \dots, X_n) \leq a) = P(X_1 \leq a, X_2 \leq a, \dots, X_n \leq a) \] We will use that principal to find the CDF of $U_{(n)}$, where $U_{(n)} = \max(U_1, U_2, \dots, U_n)$ where $U_i \sim \Unif(0, 1)$ (iid). \begin{align*} P(\max(U_1, U_2, \dots, U_n) \leq a)
+&= P(U_1 \leq a, U_2 \leq a, \dots, U_n \leq a) \\
+&= P(U_1 \leq a)P(U_2 \leq a)\dots P(U_n \leq a) \\
+&= \boxed{a^n}
+\end{align*}
 
 \subsection{Pattern Matching with $e^x$ Taylor Series}
 For $X \sim \Pois(\lambda)$, find $\displaystyle E\bigg{(}\frac{1}{X+1}\bigg{)}$. \textbf{Answer - } By LOTUS,
 \[E\left(\frac{1}{X+1}\right) = \displaystyle\sum_{k=0}^\infty \frac{1}{k+1} \frac{e^{-\lambda}\lambda^k}{k!} = \frac{e^{-\lambda}}{\lambda}\sum_{k=0}^\infty \frac{\lambda^{k+1}}{(k+1)!} = \boxed{\frac{e^{-\lambda}}{\lambda}(e^\lambda-1)}\]
 
-\section{Problem solving hints} \smallskip \hrule height 2pt \smallskip
-\begin{enumerate} \itemsep -.5em
-\item Are you looking at expectation? Think about Adam's Law, LOTUS, indicators, distributions, and variance. 
-\item Is your random variable a sum of other random variables? Possibly a sum of indicator random variables? Break it up and finding expectation and variance may be easier.
-\item Are you looking at variance? Think about independence, distributions, and Eve's Law.
-\item Are you trying to calculate the covariance between $X$ and $Y$? Is one of them a sum of random variables? Are you trying to calculate the covariance within realizations from a multinomial distribution?
-\item Are you trying to calculate $E(X^2)$? Do you already know $E(X)$ or $\var(X)$? Remember that $\var(X) = E(X^2) - E(X)^2$
-\item If $X$ and $Y$ are i.i.d., have you considered using symmetry?
-\item Is this a question about the ordering of the random variables? Have you considered looking at order statistics? Remember any ordering of i.i.d. random variables is equally likely.
-\item Is this the birthday problem? Is this a multinomial problem?
-\item Are you trying to find the joint distribution? Are they independent? If so, just multiply the marginal distributions.
-\item Are you trying to see if two things are independent? Think of extreme cases to see if you can find a counterexample.
-\item If you think something is Simpson's Paradox, make sure you're looking at 3 events. 
+\subsection{Adam and Eve's Laws}
+William really likes speedsolving Rubik's Cubes. But he's pretty bad at it, so sometimes he fails. On any given day, William will attempt $N \sim \Geom(s)$ Rubik's Cubes. Suppose each time, he has a independent probability $p$ of solving the cube. Let $T$ be the number of Rubik's Cubes he solves during a day. Find the mean and variance of $T$. \textbf{Answer - } Note that $T|N \sim \Bin(N,p)$. As a result, we have by Adam's Law that \[E(T) = E(E(T|N)) = E(Np) = \boxed{\displaystyle\frac {p (1-s)}{s}}\] Similarly, by Eve's Law, we have that \begin{align*}
+    \var(T) &= E(\var(T|N)) + \var(E(T|N)) =  E(Np(1-p)) + \var(Np)\\&= \frac{p(1-p)(1-s)}{s} +  \frac{p^2(1-s)}{s^2} = \boxed{\frac{p(1-s)(p+s(1-p))}{s^2}}
+    \end{align*}
+
+\subsection{MGF - Distribution Matching}
+(Referring to the Rubik's Cube question above) Find the MGF of $T$. What is the name of this distribution and its parameter(s)? \textbf{Answer - }
+
+    By Adam's Law, we have that \begin{align*} E(e^{tT}) &= E(E(e^{tT}|N)) =E((pe^t + q)^N) = s\sum_{n=0}^\infty(pe^t + 1-p)^n(1-s)^n \\&=\frac{s}{1-(1-s)(pe^t+1-p)} =\frac{s}{s+(1-s)p-(1-s)pe^t}
+    \end{align*}
+    
+    Intuitively, we would expect that $T$ is distributed Geometrically because $T$ is just a filtered version of $N$, which itself is Geometrically distributed. The MGF of a Geometric random variable $X\sim\Geom(\theta)$ is \[E(e^{tX}) = \displaystyle\frac{\theta}{1-(1-\theta) e^t}\]
+    
+    So, we would want to try to get our MGF into this form to identify what $\theta$ is. Taking our original MGF, it would appear that dividing by $s+(1-s)p$ would allow us to do this. Therefore, we have that \begin{center}
+    $E(e^{tT}) = \displaystyle\frac{s}{s+(1-s)p - (1-s)pe^t} = \frac{\frac{s}{s+(1-s)p}}{1-\frac{(1-s)p}{s+(1-s)p}e^t}$
+    \end{center}
+    
+    By pattern-matching, it thus follows that $\boxed{T \sim \Geom(\theta)}$ where \[\boxed{\theta = \displaystyle\frac{s}{s+(1-s)p}}\]
+
+\subsection{MGF - Finding Momemts}
+Find $E(X^3)$ for $X \sim \Expo(\lambda)$ using the MGF of $X$. \textbf{Answer - } The MGF of an $\Expo(\lambda)$ is $M(t) = \frac{\lambda}{\lambda-t}$. To get the third moment, we can take the third derivative of the MGF and evaluate at $t=0$: 
+\[\boxed{E(X^3) = \frac{6}{\lambda^3}}\]
+But a much nicer way to use the MGF here is via pattern recognition: note that $M(t)$ looks like it came from a geometric series:
+\[\frac{1}{1-\frac{t}{\lambda}} = \sum^{\infty}_{n=0} \left(\frac{t}{\lambda}\right)^n = \sum^{\infty}_{n=0} \frac{n!}{\lambda^n} \frac{t^n}{n!}\] The coefficient of $\frac{t^n}{n!}$ here is the $n^{th}$ moment of $X$, so we have $E(X^n) = \frac{n!}{\lambda^n}$ for all nonnegative integers $n$. So again we get the same answer.
+
+\subsection{Markov Chains}
+Suppose $X_n$ is a two-state Markov chain with transition matrix \[
+Q = \bordermatrix{~ & 0 & 1 \cr
+                  0 & 1-\alpha & \alpha \cr
+                  1 & \beta & 1-\beta \cr}
+\] Find the stationary distribution $\vec{s} = (s_0, s_1)$ of $X_n$ by solving $\vec{s} Q = \vec{s}$, and show that the chain is reversible under this stationary distribution. \textbf{Answer - } By solving $\vec{s}Q = \vec{s}$, we have that \[s_0 = s_0(1-\alpha) + s_1 \beta \textnormal{ and } s_1 = s_0(\alpha) + s_0(1-\beta)\] And by solving this system of linear equations it follows that \[\boxed{\vec{s} = \displaystyle\bigg{(}\frac{\beta}{\alpha+\beta}, \frac{\alpha}{\alpha+\beta}\bigg{)}}\] To show that this chain is reversible under this stationary distribution, we must show $s_i q_{ij} = s_j q_{ji}$ for all $i, j$. This is done if we can show $s_0 q_{01} = s_1 q_{10}$. Indeed, \[s_0  q_{01}  = \frac{\alpha\beta}{\alpha+\beta} = s_1 q_{10}\] thus our chain is reversible under the stationary distribution.
+
+\subsection{Markov Chains, continued}
+% hex grid code modified from http://tex.stackexchange.com/questions/61429/how-to-draw-a-hexagonal-grid-with-numbers-in-the-cells
+William and Sebastian play a modified game of Settlers of Catan, where every turn they randomly move the robber (which will start on the center tile) on a game board to one of the adjacent hexagons. (refer to a picture of the game board if confused)
+
+% unfortunately this was too large to include in the cheatsheet but feel free to uncomment this
+% \begin{center}
+% \begin{tikzpicture} [hexa/.style= {shape=regular polygon,regular polygon sides=6,minimum size=1cm, draw,inner sep=0,anchor=south,rotate=30}]
+% \foreach \j in {0,...,2}{%
+% \pgfmathsetmacro\end{2+\j} 
+%   \foreach \i in {0,...,\end}{%
+%   \node[hexa] (h\i;\j) at ({(\i-\j/2)*sin(60)},{\j*0.75}) {};}  }      
+% \node [circle,minimum size=1cm] at (h2;2) {Desert};
+% \foreach \j in {0,...,1}{%
+%   \pgfmathsetmacro\end{3-\j} 
+%   \foreach \i in {0,...,\end}{%
+%   \pgfmathtruncatemacro\k{\j+2}  
+%   \node[hexa] (h\i;\k) at ({(\i+\j/2-0.5)*sin(60)},{2.25+\j*0.75}) {};}  } 
+% \end{tikzpicture}
+% \end{center}
+
+\begin{enumerate}[a)]
+    \item Is this Markov Chain irreducible? Is it aperiodic? \textbf{Answer - } $\boxed{\textnormal{Yes to both}}$ The Markov Chain is irreducible because it can get from anywhere to anywhere else. The Markov Chain is also aperiodic because the robber can return back to a square in $2, 3, 4, 5, \dots$ moves. Those numbers have a GCD of 1, so the chain is aperiodic.
+    \item What is the stationary distribution of this Markov Chain? \textbf{Answer - }Since this is a random walk on an undirected graph, the stationary distribution is proportional to the degree sequence. The degree for the corner pieces is 3, the degree for the edge pieces is 4, and the degree for the center pieces is 6. To normalize this degree sequence, we divide by its sum. The sum of the degrees is $6(3) + 6(4) + 7(6) = 72$. Thus the stationary probability of being on a corner is $3/84 = 1/28$, on an edge is $4/84 =  1/21$, and in the center is $6/84 = 1/14$.
+    \item What fraction of the time will the robber be in the desert in this game? \textbf{Answer - } From above, $\boxed{1/14}$.
+    \item Say the robber starts on the desert. What is the expected amount of moves it will take for the robber to return? \textbf{Answer - } Since this chain is irreducible and aperiodic, to get the expected time to return we can just invert the stationary probability. Thus on average it will take $\boxed{14}$ turns for the robber to return to the desert.
 \end{enumerate}
+
+
+\section{Problem Solving Strategies} \smallskip \hrule height 2pt \smallskip
+
+Contributions from Jessy Hwang, Yuan Jiang, Yuqi Hou
+
+\begin{enumerate} \itemsep -.25em
+\item \textbf{Getting Started.} Start by \emph{defining events} and/or \emph{defining random variables}. (''Let $A$ be the event that I pick the fair coin''; ``Let $X$ be the number of successes.'') Clear notion = clear thinking! Then decide what it is that you're supposed to be finding, in terms of your location (``I want to find $P(X=3|A)$''). Try simple and extreme cases. To make an abstract experiment more concrete, try drawing a picture or making up numbers that could have happened. Pattern recognition: does the structure of the problem resemble something we've seen before.
+\item \textbf{Calculating Probability of an Event.} Use combinatorics if the naive definition of probability applies. Look for symmetries or something to condition on, then apply Bayes' rule or LoTP. Is the probability of the complement easier to find?
+\item \textbf{Finding the distribution of a random variable.} Check the \emph{support} of the random variable: what values can it take on? Use this to rule out distributions that don't fit. - Is there a \emph{story} for one of the named distributions that fits the problem at hand? - Can you write the random variable as a function of a r.v. with a known distribution, say $Y = g(X)$? Then work directly from the definition of PDF or PMF, expressing $P(Y \leq y)$ or $P(Y = y)$ in terms of events involving $X$ only. - For PDFs, find the CDF first and then differentiate. - If you're trying to find the joint distribution of two \emph{independent} random variables, just multiple their marginal probabilities - Do you need the distribution? If the question only asks for the expected value of $X$, you might be able to find this without knowing the entire distirbution of $X$. See the next item.
+\item \textbf{Calculating Expectation.} If it has a named distribution, check out the table of distributions. If its a function of a r.v. with a named distribution, try LotUS. If its a count of something, try breaking it up into indicator random variables. If you can condition on something, consider using Adam's law. Also consider the variance formula.
+\item \textbf{Calculating Variance.} Consider independence, named distributions, and LotUS. If it's a count of something, break it up into a sum of indicator random variables. If you can condition on something, consider using Eve's Law.
+\item \textbf{Calculating $E(X^2)$} - Do you already know $E(X)$ or $\var(X)$? Remember that $\var(X) = E(X^2) - E(X)^2$.
+\item \textbf{Calculating Covariance} If it's a count of something, break it up into a sum of indicator random variables. If you're trying to calculate the covariance between two components of a multinomial distribution, $X_i, X_j$, then the covariance is $-np_ip_j$.
+\item If $X$ and $Y$ are i.i.d., have you considered using symmetry? 
+\item \textbf{Calculating Probabilities of Orderings of Random Variables} Have you considered looking at order statistics? - Remember any ordering of i.i.d. random variables is equally likely.
+\item Is this the birthday problem? Is this a multinomial problem?
+\item \textbf{Determining Independence} Use the definition of independence. Think of extreme cases to see if you can find a counterexample.
+\item Does something look like Simpson's Paradox? make sure you're looking at 3 events. 
+\item \textbf{Find the PDF.} If the question gives you two r.v., where you know the PDF of one r.v. and the other r.v. is a function of the first one, then the problem wants you to use a transformation of variables (Jacobian). You can also find the pdf by differentiating the CDF.
+\item \textbf{Do a painful integral.} If your integral looks painful, see if you can write your integral in terms of a PDF (like Gamma or Beta), so that the integral equals 1.
+\item \textbf{Before moving on.} Plug in some simple and extreme cases to make sure that your answer makes sense.
+\end{enumerate}
+
+
+\section{Biohazards} \smallskip \hrule height 2pt \smallskip
+
+Section author: Jessy Hwang
+
+\begin{enumerate} \itemsep -.25em
+\item \textbf{Don't misuse the native definition of probability}  - When answering ``What is the probability that in a group of 3 people, no two have the same birth month?'', it is \emph{not} correct to treat the people as indistinguishable balls being placed into 12 boxes, since that assumes the list of birth months \{ January, January, January\} is just as likely as the list \{ January, April, June\}, when the latter is fix times more likely.
+\item \textbf{Don't confuse unconditional and conditional probabilities, or go in circles with Baye's Rule} - $P(A|B) = \frac{P(B|A)P(A)}{P(B)}$. It is \emph{not} correct to say ``$P(B) = 1$ because we know that $B$ happened.''; P(B) is the probability \emph{before} we have information about whether \emph{B} happened. It is \emph{not} correct to use $P(A|B)$ in place of $P(A)$ on the right-hand side.
+\item \textbf{Don't assume independence without justification} - In the matching problem, the probability that card 1 is a match and card 2 is a match is not $1/n^2$. - The Binomial and Hypergeometric are often confused; the trials are independent in the Binomial story and not independent in the Hypergeometric story due to the lack of replacement.
+\item \textbf{Don't confuse random variables, numbers, and events.} - Let $X$ be a r.v. Then $f(X)$ is a r.b. for any function $f$. In particular, $X^2$, $|X|$, $F(X)$, and $I_{X>3}$ are r.v.s. $P(X^2 < X | X \geq 0), E(X), \var(X), $ and $f(E(X))$ are numbers. $X = 2$ and $F(X) \geq -1$ are events. It does not make sense to write $\int_{-\infty}^\infty F(X) dx$ because $F(X)$ is a random variable. It does not make sense to write $P(X)$ because $X$ is not an event.
+\item \textbf{A random variable is not the same thing as its distribution} - To get the PDF of $X^2$, you can't just square the PDF of $X$. The right way is to use \hyperref[one variable transformations]{one variable transformations} - To get the PDF of $X + Y$, you can't just add the PDF of $X$ and the PDF of $Y$. The right way is to compute the \hyperref[convolutions]{convolution}.
+\item \textbf{$E(g(X))$ does not equal $g(E(X))$ in general.} - See the St. Petersburg paradox for an extreme example. - The right way to find $E(g(X))$ is with \hyperref[lotus]{LotUS}.
+\end{enumerate}
+
+\section{Recommended Resources} \smallskip \hrule height 2pt \smallskip
+
+\begin{itemize} \itemsep -.25em
+\item Introduction to Probability (\url{http://bit.ly/introprobability})
+\item Stat 110 Online (\url{http://stat110.net})
+\item Stat 110 Quora Blog (\url{https://stat110.quora.com/})
+\item Stat 110 Course Notes (\texttt{\href{http://www.mxawng.com/stuff/notes/stat110.pdf}{mxawng.com/stuff/notes/stat110.pdf}})
+\item Quora Probability FAQ (\url{http://bit.ly/probabilityfaq})
+\item LaTeX File (\texttt{\href{https://github.com/wzchen/probability_cheatsheet}{github.com/wzchen/probability\_cheatsheet}})
+\end{itemize}
 
 \end{multicols}
 
 
 
+\begin{center}
 
-\begin{sidewaystable}
+\section{Distributions}
 
-    \begin{center}
+\renewcommand{\arraystretch}{3}
+\begin{tabular}{cccccc}
+\textbf{Distribution} & \textbf{PDF and Support} & \textbf{EV}  & \textbf{Variance} & \textbf{MGF}\\
+\hline \hline
+\shortstack{Bernoulli \\ \Bern($p$)} & \shortstack{$P(X=1) = p$ \\$ P(X=0) = q$} & $p$ & $pq$ & $q + pe^t$ \\
+\hline
+\shortstack{Binomial \\ \Bin($n, p$)} & \shortstack{$P(X=k) = {n \choose k}p^k(1-p)^{n-k}$  \\ $k \in \{0, 1, 2, \dots n\}$}& $np$ & $npq$ & $(q + pe^t)^n$ \\
+\hline
+\shortstack{Geometric \\ \Geom($p$)} & \shortstack{$P(X=k) = q^kp$  \\ $k \in \{$0, 1, 2, \dots $\}$}& $q/p$ & $q/p^2$ & $\frac{p}{1-qe^t}, qe^t < 1$\\
+\hline
+\shortstack{Negative Binom. \\ \NBin($r, p$)} & \shortstack{$P(X=n) = {r + n - 1 \choose r -1}p^rq^n$ \\ $n \in \{$0, 1, 2, \dots $\}$} & $rq/p$ & $rq/p^2$ &  $(\frac{p}{1-qe^t})^r, qe^t < 1$\\
+\hline
+\shortstack{Hypergeometric \\ \Hypergeometric($w, b, n$)} & \shortstack{$P(X=k) = \sfrac{{w \choose k}{b \choose n-k}}{{w + b \choose n}}$ \\ $k \in \{0, 1, 2, \dots,  n\}$} & $\mu = \frac{nw}{b+w}$ &$\frac{w+b-n}{w+b-1}n\frac{\mu}{n}(1 - \frac{\mu}{n})$& $-$  \\
+\hline
+\shortstack{Poisson \\ \Pois($\lambda$)} & \shortstack{$P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}$ \\ $k \in \{$0, 1, 2, \dots $\}$} & $\lambda$ & $\lambda$ & $e^{\lambda(e^t-1)}$ \\
+\hline
+\hline
+\shortstack{Uniform \\ \Unif($a, b$)} & \shortstack{$ f(x) = \frac{1}{b-a}$ \\$ x \in (a, b) $} & $\frac{a+b}{2}$ & $\frac{(b-a)^2}{12}$ &  $\frac{e^{tb}-e^{ta}}{t(b-a)}$\\
+\hline
+\shortstack{Normal \\ $\N(\mu, \sigma^2)$} & \shortstack{$f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\sfrac{(x - \mu)^2}{(2 \sigma^2)}}$ \\ $x \in (-\infty, \infty)$} & $\mu$  & $\sigma^2$ & $e^{t\mu + \frac{\sigma^2t^2}{2}}$\\
+\hline
+\shortstack{Exponential \\ $\Expo(\lambda)$} & \shortstack{$f(x) = \lambda e^{-\lambda x}$\\$ x \in (0, \infty)$} & $\sfrac{1}{\lambda}$  & $\sfrac{1}{\lambda^2}$ & $\frac{\lambda}{\lambda - t}, t < \lambda$\\
+\hline
+\shortstack{Gamma \\ $\Gam(a, \lambda)$} & \shortstack{$f(x) = \frac{1}{\Gamma(a)}(\lambda x)^ae^{-\lambda x}\frac{1}{x}$\\$ x \in (0, \infty)$} & $\sfrac{a}{\lambda}$  & $\sfrac{a}{\lambda^2}$ & $\left(\frac{\lambda}{\lambda - t}\right)^a, t < \lambda$\\
+\hline
+\shortstack{Beta \\ \Beta(a, b)} & \shortstack{$f(x) = \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}x^{a-1}(1-x)^{b-1}$\\$x \in (0, 1) $} & $\mu = \frac{a}{a + b}$  & $\frac{\mu(1-\mu)}{(a + b + 1)}$ & $-$\\
+\hline
+\shortstack{Chi-Squared \\ $\chi_n^2$} & \shortstack{$\frac{1}{2^{n/2}\Gamma(n/2)}x^{n/2 - 1}e^{-x/2}$\\$x \in (0, \infty) $} & $n$  & $2n$ & $(1 - 2t)^{-n/2}, t < 1/2$\\
+\hline
+\hline
+\shortstack{Multivar Uniform \\ A is support} & \shortstack{$f(x) = \frac{1}{|A|}$\\$  x \in A $} & $-$  & $-$ & $-$\\
+\hline
+\shortstack{Multinomial \\ \Mult$_k(n, \vec{p}$)} & \shortstack{$P(\vec{X} = \vec{n}) = {n \choose n_1\dots n_k}p_1^{n_1}\dots p_k^{n_k}$ \\ $n = n_1 + n_2 + \dots + n_k$} & $n\vec{p}$ & \shortstack{$\var(X_i) = np_i(1-p_i)$ \\ $\cov(X_i, X_j) = -np_ip_j$} & $\left(\sum_{i=1}^k p_ie^{t_i}\right)^n$ \\
+\hline
+\hline
 
-    \section{Distributions}
+\end{tabular}
 
-    \renewcommand{\arraystretch}{3}
-    \begin{tabular}{cccccc}
-    \textbf{Distribution} & \textbf{PDF and Support} & \textbf{EV}  & \textbf{Variance} & \textbf{MGF}\\
-    \hline \hline
-    \shortstack{Bernoulli \\ \Bern($p$)} & \shortstack{$P(X=1) = p$ \\$ P(X=0) = q$} & $p$ & $pq$ & $q + pe^t$ \\
-    \hline
-    \shortstack{Binomial \\ \Bin($n, p$)} & \shortstack{$P(X=k) = {n \choose k}p^k(1-p)^{n-k}$  \\ $k \in \{0, 1, 2, \dots n\}$}& $np$ & $npq$ & $(q + pe^t)^n$ \\
-    \hline
-    \shortstack{Geometric \\ \Geom($p$)} & \shortstack{$P(X=k) = q^kp$  \\ $k \in \{$0, 1, 2, \dots $\}$}& $q/p$ & $q/p^2$ & $\frac{p}{1-qe^t}, qe^t < 1$\\
-    \hline
-    \shortstack{Negative Binom. \\ \NBin($r, p$)} & \shortstack{$P(X=n) = {r + n - 1 \choose r -1}p^rq^n$ \\ $n \in \{$0, 1, 2, \dots $\}$} & $rq/p$ & $rq/p^2$ &  $(\frac{p}{1-qe^t})^r, qe^t < 1$\\
-    \hline
-    \shortstack{Hypergeometric \\ \Hypergeometric($w, b, n$)} & \shortstack{$P(X=k) = \sfrac{{w \choose k}{b \choose n-k}}{{w + b \choose n}}$ \\ $k \in \{0, 1, 2, \dots,  n\}$} & $\mu = \frac{nw}{b+w}$ &$\frac{w+b-n}{w+b-1}n\frac{\mu}{n}(1 - \frac{\mu}{n})$& $-$  \\
-    \hline
-    \shortstack{Poisson \\ \Pois($\lambda$)} & \shortstack{$P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}$ \\ $k \in \{$0, 1, 2, \dots $\}$} & $\lambda$ & $\lambda$ & $e^{\lambda(e^t-1)}$ \\
-    \hline
-    \hline
-    \shortstack{Uniform \\ \Unif($a, b$)} & \shortstack{$ f(x) = \frac{1}{b-a}$ \\$ x \in (a, b) $} & $\frac{a+b}{2}$ & $\frac{(b-a)^2}{12}$ &  $\frac{e^{tb}-e^{ta}}{t(b-a)}$\\
-    \hline
-    \shortstack{Normal \\ $\N(\mu, \sigma^2)$} & \shortstack{$f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\sfrac{(x - \mu)^2}{(2 \sigma^2)}}$ \\ $x \in (-\infty, \infty)$} & $\mu$  & $\sigma^2$ & $e^{t\mu + \frac{\sigma^2t^2}{2}}$\\
-    \hline
-    \shortstack{Exponential \\ $\Expo(\lambda)$} & \shortstack{$f(x) = \lambda e^{-\lambda x}$\\$ x \in (0, \infty)$} & $\sfrac{1}{\lambda}$  & $\sfrac{1}{\lambda^2}$ & $\frac{\lambda}{\lambda - t}, t < \lambda$\\
-    \hline
-    \shortstack{Gamma \\ $\Gam(a, \lambda)$} & \shortstack{$f(x) = \frac{1}{\Gamma(a)}(\lambda x)^ae^{-\lambda x}\frac{1}{x}$\\$ x \in (0, \infty)$} & $\sfrac{a}{\lambda}$  & $\sfrac{a}{\lambda^2}$ & $\left(\frac{\lambda}{\lambda - t}\right)^a, t < \lambda$\\
-    \hline
-    \shortstack{Beta \\ \Beta(a, b)} & \shortstack{$f(x) = \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}x^{a-1}(1-x)^{b-1}$\\$x \in (0, 1) $} & $\mu = \frac{a}{a + b}$  & $\frac{\mu(1-\mu)}{(a + b + 1)}$ & $-$\\
-    \hline
-    \shortstack{Chi-Squared \\ $\chi_n^2$} & \shortstack{$\frac{1}{2^{n/2}\Gamma(n/2)}x^{n/2 - 1}e^{-x/2}$\\$x \in (0, \infty) $} & $n$  & $2n$ & $(1 - 2t)^{-n/2}, t < 1/2$\\
-    \hline
-    \hline
-    \shortstack{Multivar Uniform \\ A is support} & \shortstack{$f(x) = \frac{1}{|A|}$\\$  x \in A $} & $-$  & $-$ & $-$\\
-    \hline
-    \shortstack{Multinomial \\ \Mult$_k(n, \vec{p}$)} & \shortstack{$P(\vec{X} = \vec{n}) = {n \choose n_1\dots n_k}p_1^{n_1}\dots p_k^{n_k}$ \\ $n = n_1 + n_2 + \dots + n_k$} & $n\vec{p}$ & \shortstack{$\var(X_i) = np_i(1-p_i)$ \\ $\cov(X_i, X_j) = -np_ip_j$} & $\left(\sum_{i=1}^k p_ie^{t_i}\right)^n$ \\
-    \hline
-    \hline
+\hskip 1cm
+\section{Inequalities}
 
-    \end{tabular}
-
-    \hskip 1cm
-    \section{Inequalities}
-
-    \renewcommand{\arraystretch}{1}% Tighter
+\renewcommand{\arraystretch}{1}% Tighter
 
 
-    \begin{tabular}{cccc}
-    \textbf{Cauchy-Schwarz} & \textbf{Markov} & \textbf{Chebychev} & \textbf{Jensen} \\ 
-    $|E(XY)| \leq \sqrt{E(X^2)E(Y^2)}$ & 
-    $\displaystyle P(X \geq a) \leq \frac{E|X|}{a}$ &
-    $\displaystyle P(|X - \mu_X| \geq a) \leq \frac{\sigma^2_X}{a^2}$ &
-    $g$ convex: $E(g(X)) \geq g(E(X))$ \\ [0ex]
-    &&& $g$ concave: $E(g(X)) \leq g(E(X))$ \\ 
-    \end{tabular}
-    \end{center}
-\end{sidewaystable} 
+\begin{tabular}{cccc}
+\textbf{Cauchy-Schwarz} & \textbf{Markov} & \textbf{Chebychev} & \textbf{Jensen} \\ 
+$|E(XY)| \leq \sqrt{E(X^2)E(Y^2)}$ & 
+$\displaystyle P(X \geq a) \leq \frac{E|X|}{a}$ &
+$\displaystyle P(|X - \mu_X| \geq a) \leq \frac{\sigma^2_X}{a^2}$ &
+$g$ convex: $E(g(X)) \geq g(E(X))$ \\ [0ex]
+&&& $g$ concave: $E(g(X)) \leq g(E(X))$ \\ 
+\end{tabular}
+\end{center}
+
 
 
 \end{document}
