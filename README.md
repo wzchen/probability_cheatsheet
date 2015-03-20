@@ -93,7 +93,7 @@ Added
 Contact Me
 -------
 
-I welcome comments, suggestions, and corrections! You can contact me on [my website](http://www.wzchen.com/) or leave a comment on the [github repo](https://github.com/wzchen/probability_cheatsheet).
+I welcome comments, suggestions, and corrections! You can message me on [Quora](https://www.quora.com/William-Chen-6), contact me via [my website](http://www.wzchen.com/) or suggest changes directly in the [github repo](https://github.com/wzchen/probability_cheatsheet) source code.
 
 [by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 [by-nc-sa-img]: http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png
