@@ -1,5 +1,6 @@
-The following is a 8-page crash course on probability based off my notes as a Teaching Fellow for Joe Blitzstein's Stat 110 class. It covers a semester's worth of probability, including summaries of main topics, common distributions, problems, tips, and a distribution reference sheet.
+This cheatsheet is a 10-page reference in probability that covers a semester's worth of introductory probability.
 
+The cheatsheet is based off of Harvard's introductory probability course, Stat 110. It is co-authored by former Stat 110 Teaching Fellow William Chen and Stat 110 Professor Joe Blitzstein.
 
 Links
 -------
@@ -10,8 +11,8 @@ Links
 Screenshots
 -------
 
-![First Page](http://i.imgur.com/HcQaydH.jpg)
-![Second Page](http://i.imgur.com/HDwSPDk.jpg)
+![First Page](http://i.imgur.com/BCcOWG0.png)
+![Second Page](http://i.imgur.com/Vh5iwj6.png)
 
 
 License
@@ -29,6 +30,24 @@ Planned Additions
 
 Changelog
 -------
+
+### 2.0 / 2015-09-03
+
+Contributor: Joe Blitzstein
+
+Summary: A huge thanks goes to Professor Joe Blitzstein (@stat110) for his work in polishing up the cheatsheet, adding colors and figures, and officially using it in his Stat 110 class (which is the class that inspired this cheatsheet to begin with). The cheatsheet is now a joint work by William and Professor Blitzstein.
+
+Added
+
+* Figures
+* Probability of an Intersection or Union
+* Distributions in R Section
+* Colors
+
+Fixes
+
+* Extensive polishing and rephrasing for clarity, consistency, and quality.
+* Slight reorganization of contents
 
 ### 1.1.1 / 2015-03-20
 
