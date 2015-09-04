@@ -49,6 +49,11 @@ Fixes
 * Extensive polishing and rephrasing for clarity, consistency, and quality.
 * Slight reorganization of contents
 
+Removed
+
+* Calculating Probability (2) from Example Problems
+* MGF -- Distribution Matching from Example Problems
+
 ### 1.1.1 / 2015-03-20
 
 Summary: Cleaned up sections, moved things around to more logical locations, and fixed one error in formula. Also removed some left margins, which allowed room for a Settlers of Catan diagram and the hat-matching problem.
