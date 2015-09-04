@@ -31,7 +31,7 @@ Planned Additions
 Changelog
 -------
 
-### 2.0 / 2015-09-03
+### 2.0 / 2015-09-04
 
 Contributor: Joe Blitzstein
 
@@ -47,7 +47,11 @@ Added
 Fixes
 
 * Extensive polishing and rephrasing for clarity, consistency, and quality.
-* Slight reorganization of contents
+
+Moved
+
+* Inequalities moved from the back reference sheet to inside the cheatsheet under "Distribution Properties"
+* Some sections reordered
 
 Removed
 
