@@ -55,6 +55,7 @@ Moved
 
 Removed
 
+* Repeated definitions of PMF and CDF
 * Calculating Probability (2) from Example Problems
 * MGF -- Distribution Matching from Example Problems
 
@@ -118,10 +119,14 @@ Added
 
 * Probability Cheatsheet
 
-Contact Me
+Contact Us
 -------
 
-I welcome comments, suggestions, and corrections! You can message me on [Quora](https://www.quora.com/William-Chen-6), contact me via [my website](http://www.wzchen.com/) or suggest changes directly in the [github repo](https://github.com/wzchen/probability_cheatsheet) source code.
+For comments, suggestions, and corrections: contact William, submit a pull request, or submit an issue on Github!
+
+William Chen - You can message William on [Quora](https://www.quora.com/William-Chen-6), tweet him at [@wzchen](https://twitter.com/wzchen), or contact him via [his website](http://www.wzchen.com/)
+
+Joe Blitzstein - You can tweet Joe at [@stat110](https://twitter.com/stat110)
 
 [by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 [by-nc-sa-img]: http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png
