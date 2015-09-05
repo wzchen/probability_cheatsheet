@@ -11,8 +11,8 @@ Links
 Screenshots
 -------
 
-![First Page](http://i.imgur.com/BCcOWG0.png)
-![Second Page](http://i.imgur.com/Vh5iwj6.png)
+![First Page](http://i.imgur.com/Oa73huL.jpg)
+![Second Page](http://i.imgur.com/dyvW2rB.jpg)
 
 
 License
