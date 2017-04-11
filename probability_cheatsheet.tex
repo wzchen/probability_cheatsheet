@@ -524,6 +524,12 @@ To find the distribution of one (or more) random variables from a joint PMF/PDF,
 \textbf{Marginal PDF from joint PDF}
 \[f_X(x) = \int_{-\infty}^\infty f_{X, Y}(x, y) dy\]
 
+\subsection{Truncated Distributions}
+The distribution of a random variable $X$ over the interval $a < X \le b$ is given by: \medskip
+%\textbf{Truncated PDF}
+\[f_X(x | a < X \le b) = \frac{g(x)} {F_X(b) - F_X(a)}\]
+where $g(x) = f_X(x)$ for all $a < x \le b$ and $g(x) = 0$ otherwise.
+
 
 \subsection{Independence of Random Variables}
 Random variables $X$ and $Y$ are independent if and only if any of the following conditions holds:
