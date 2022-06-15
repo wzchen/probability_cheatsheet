@@ -293,7 +293,7 @@ P({ A}) &= P({ A} \cap { B})+ P({ A} \cap { B^c}) \\
          \[P({ A}|{ B})  = \frac{P({ B}|{ A})P({ A})}{P({ B})}\]
          \[P({ A}|{ B}, { C}) = \frac{P({ B}|{ A}, { C})P({ A} | { C})}{P({ B} | { C})}\]
          We can also write
-         $$P(A|B,C) = \frac{P(A,B,C)}{P(B,C)} = \frac{P(B,C|A)P(A)}{P(B,C)}$$
+         $$P(A|B,C) = \frac{P(A,B,C)}{P(B,C)} = \frac{P(B,C|A)P(A)}{P(B,C)} = \frac{P(A|B)P(C|B,A)}{P(C|B)}$$
 \textbf{Odds Form of Bayes' Rule}
 \[\frac{P({ A}| { B})}{P({ A^c}| { B})} = \frac{P({ B}|{ A})}{P({ B}| { A^c})}\frac{P({ A})}{P({ A^c})}\]
 The \emph{posterior odds} of $A$ are the \emph{likelihood ratio} times the \emph{prior odds}. 
